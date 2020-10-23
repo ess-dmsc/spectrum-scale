@@ -1,0 +1,85 @@
+# Source: dmsc-kafka02
+# Date: 2020-10-22
+   41 yum install -y rsync
+   44  iptables-save
+   46  yum update -y
+   47  reboot
+   50  /usr/bin/yum -y install kernel-devel cpp gcc gcc-c++ kernel-headers
+   66  mmbuildgpl
+   76  mmstartup
+   77  mmgetstate -a
+   78  cd /var/mmfs/
+   81  mmstartup
+   82  mmsdrrestore -p dmsc-parallel-hs
+   83  mmstartup
+   85  mmhealth node
+   86  mmhealth node show
+   87  systemctl status gpfs
+   88  sudo systemctl start gpfs
+   89  sudo systemctl status gpfs
+   90   journalctl -u  gpfs
+   91  sudo systemctl start gpfs
+   93  reboot
+   95  sudo systemctl status gpfs
+   96   journalctl -u  gpfs
+   98  systemctl restart gpfs
+  100  systemctl restart gpfs
+  104  mmlogmsg
+  105  mmlogmsg default
+  109  mmlsconfig
+  110  mmhealth node show
+  130  mmshutdown
+  131  mmstartup
+  132  sudo systemctl status gpfs
+  136  modprobe mmfslinux
+  137  modprobe mmfs26
+# Most of the above commands didn't solve the problem, now we
+# downgrade to the same kernel version as the other nodes
+  139  yum downgrade kernel-3.10.0-1062
+  140  yum downgrade kernel-3.10.0-1062.el7
+  143  yum search --show-duplicates kernel-3.10.0
+  145  yum downgrade --enablerepo= 3.10.0-1062.18.1.el7
+  146  yum downgrade --enablerepo=C7.6.1810-updates 3.10.0-1062.18.1.el7
+  147  yum search --enablerepo=C7.6.1810-updates kernel
+  148  yum info --enablerepo=C7.6.1810-updates kernel
+  149  yum info --enablerepo=C7.6.1810-updates --show-duplicates kernel
+  150  less /etc/yum.repos.d/CentOS-Vault.repo
+  151  yum info --enablerepo=C7.7.1908-updates --show-duplicates kernel
+  152  yum downgrade --enablerepo=C7.7.1908-updates kernel-3.10.0-1062
+  153  yum downgrade --enablerepo=C7.7.1908-updates kernel-3.10.0-1062.el7
+  154  yum downgrade --enablerepo=C7.7.1908-updates kernel
+  155  yum downgrade --enablerepo=C7.7.1908-updates kernel kernel-3.10.0-1062.1.1.el7.x86_64
+  156  yum downgrade --enablerepo=C7.7.1908-updates kernel-3.10.0-1062.1.1.el7.x86_64
+  157  yum install --enablerepo=C7.7.1908-updates kernel-3.10.0-1062.1.1.el7.x86_64
+  158  yum downgrade --enablerepo=C7.7.1908-updates kernel-3.10.0-1062.1.1.el7.x86_64
+  159  awk -F\' '$1=="menuentry " {print $2}' /etc/grub2.cfg
+  160  grub2-set-default 0
+  161  less /etc/default/grub
+  165  cp grub.cfg grub.cfg.bkp
+  166  grub2-mkconfig -o /boot/grub2/grub.cfg
+  168  reboot
+  170  vim /etc/default/grub
+  171  grub2-mkconfig -o /boot/grub2/grub.cfg
+  172  awk -F\' '$1=="menuentry " {print $2}' /etc/grub2.cfg
+  173  vim /etc/default/grub
+  174  grub2-mkconfig -o /boot/grub2/grub.cfg
+  175  vim /etc/default/grub
+  176  awk -F\' '$1=="menuentry " {print $2}' /etc/grub2.cfg
+  177  reboot
+  179  mmbuildgpl
+  180  yum install kernel-headers
+  181  yum install kernel-headers- 3.10.0-1062
+  182  yum install kernel-headers-3.10.0-1062
+  183  yum install --enablerepo=C7.7.1908-updates kernel-headers-3.10.0-1062
+  184  yum info kernel-headers
+  185  yum install --enablerepo=C7.7.1908-updates kernel-headers-3.10.0-1062.1.1.el7.x86_64
+  186  yum install --enablerepo=C7.7.1908-updates kernel-devel-3.10.0-1062.1.1.el7.x86_64
+  187  mmbuildgpl
+  188  mmshutdown
+  190  modprobe mmfs26
+  191  lsmod  | less
+  192  mmstartup
+  193  sudo systemctl status gpfs
+  194  ls /gpfs/ESS
+  195  ls /gpfs/ESS2
+  196  mmhealth node show

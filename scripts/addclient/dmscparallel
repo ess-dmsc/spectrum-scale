@@ -1,0 +1,29 @@
+# Source: dmsc-parallel
+# Date 2020-10-22
+  950  rsync -av /usr/lpp/ dmsc-kafka02-hs:/usr/lpp/
+  951  i=dmsc-kafka02
+  952  scp /etc/yum.repos.d/scale.repo $i:/etc/yum.repos.d/scale.repo
+  953  . /etc/profile.d/scale.sh
+  955  scp /etc/profile.d/scale.sh $i:/etc/profile.d/
+  956  yum -y update
+  957  yum -y --skip-broken update
+  958  reboot
+  960  mmhealth cluster show
+  961  i=dmsc-kafka02
+  962  ssh $i yum -y install gpfs.base gpfs.compression gpfs.docs gpfs.gpl gpfs.gskit gpfs.java gpfs.license.dm gpfs.msg.en_US gpfs.gss.pmsensors
+  964  ssh $i mmbuildgpl
+  966  mmaddnode -N dmsc-kafka02-hs:client
+  971  mmchlicense server --accept -N dmsc-kafka02-hs
+  973  mmgetstate -aLs
+  974  mmstartup
+  975  mmmount ESS2 -N all
+  976  mmgetstate -aLs
+  980  mmhealth cluster show
+  982  mmaddnode -N dmsc-kafka02-hs:client
+  983  mmlsconfig
+  987  mmhealth cluster show
+  988  mmgetstate -aLs
+  989  mmhealth cluster show
+  990  mmmount ESS2 -N all
+  991  mmmount ESS -N all
+  992  mmhealth cluster show
