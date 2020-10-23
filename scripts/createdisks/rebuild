@@ -1,0 +1,88 @@
+#!/bin/bash
+fsname=${1:-ESS}
+pname=${2:-data}
+dsize=${3:-20T}
+
+metadataopts="da=DA1 blocksize=1M size=512G raidCode=3WayReplication diskUsage=metadataOnly failureGroup=10 pool=system"
+dataopts="da=DA1 blocksize=16M size=$dsize raidCode=8+2p diskUsage=dataOnly failureGroup=10 pool=$pname"
+
+rg1disks="10_001 10_003 10_005 10_007 10_009 10_011"
+rg2disks="10_002 10_004 10_006 10_008 10_010 10_012"
+
+alldisks=""
+function createstanza() {
+  for vdisk in $rg1disks
+  do
+    mddisk=${fsname}_MD_$vdisk
+    ddisk=${fsname}_D_$vdisk
+    alldisks="$alldisks;$mddisk;$ddisk"
+    echo "%vdisk: vdiskName=$mddisk rg=rg_gssio1-hs $metadataopts"
+    echo "%vdisk: vdiskName=$ddisk rg=rg_gssio1-hs $dataopts"
+  done
+  echo
+
+  for vdisk in $rg2disks
+  do
+    mddisk=${fsname}_MD_$vdisk
+    ddisk=${fsname}_D_$vdisk
+    alldisks="$alldisks;$mddisk;$ddisk"
+    echo "%vdisk: vdiskName=$mddisk rg=rg_gssio2-hs $metadataopts"
+    echo "%vdisk: vdiskName=$ddisk rg=rg_gssio2-hs $dataopts"
+  done
+  echo
+}
+
+function deletedisks() {
+  mmunmount $fsname -N all
+  mmdelfs $fsname
+  mmlsfs all
+  mmlsnsd -a
+
+  mmdelnsd $alldisks
+  mmlsnsd -a
+  mmdelvdisk $alldisks
+  mmlsvdisk
+}
+
+function createdisks() {
+  mmcrvdisk -F $stanza
+  mmlsvdisk
+  mmcrnsd -F $stanza
+  mmlsnsd -a
+  mmcrfs $fsname -F $stanza -A yes -j scatter -B 16M -n 32 -L 1073741824 -E no --metadata-block-size 1M
+  mmlsfs all
+  mmauth grant utgaard.cluster -f $fsname
+  mmauth show all
+  mmmount $fsname -N all
+  echo "run command \"mmremotefs add $fsname -f /dev/ESS2 -C ESSatESS.cluster\" from dmsc-parallel"
+  echo "then run command \"mmmount $fsname -N all\" from dmsc-parallel"
+}
+
+#
+# #
+#
+stanza=${fsname}_desc_auto.txt
+createstanza > $stanza
+echo $alldisks
+
+echo -n "Enter command (create, delete)> "
+read cmd
+
+case $cmd in
+  delete)
+    echo "Delete filesystem \"$fsname\", nsds and vdisks?"
+    echo -n "Enter to proceed, Ctrl-C to break: "
+    read noop
+    deletedisks
+    ;;
+  create)
+    echo "Create filesystem \"$fsname\" with data pool name \"$pname\", disk size \"$dsize?\""
+    echo -n "Enter to proceed, Ctrl-C to break: "
+    read noop
+    createdisks
+    ;;
+  *)
+    echo Unknown command \"$cmd\", exiting ...
+    exit 1
+    ;;
+esac

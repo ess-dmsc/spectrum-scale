@@ -1,0 +1,1 @@
+RULE EXTERNAL POOL 'extpoolA' EXEC 'extpool.sh' OPTS '-server=hsm-manager.nyc.com'

@@ -1,0 +1,2 @@
+RULE EXTERNAL LIST 'mkiso' EXEC '/root/mjc/mkiso.sh'
+RULE 'mypool_files' LIST 'mkiso' FROM POOL 'data' DIRECTORIES_PLUS WHERE (name) like '%.tmp'

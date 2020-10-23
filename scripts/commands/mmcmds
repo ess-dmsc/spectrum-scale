@@ -1,0 +1,43 @@
+# Source: From workshop ?
+# Author: Louis B.
+# References cmds
+  919  mmlsvdisk
+  923  mmumount gpfs0 -N all
+  924  mmlsmount all
+  925  mmdelfs gpfs0
+  926  mmlsfs all
+  927  mmlsvdisk
+  930  mmlsnsd all
+  931  mmlsnsd -a
+  932  mmdelnsd
+  933  mmdelnsd "rg_gssio1_hs_DA1_DataAndMetaData_16M_2p_1;rg_gssio2_hs_DA1_DataAndMetaData_16M_2p_1"
+  934  mmdelvdisk "rg_gssio1_hs_DA1_DataAndMetaData_16M_2p_1;rg_gssio2_hs_DA1_DataAndMetaData_16M_2p_1"
+  935  mmlscluster
+  940  mmlsrecoverygroup
+  941  mmlsrecoverygroup rg_gssio1-hs
+  947  mmcrvdisk -F ESS_desc.txt
+  948  mmlsvdisk
+  949  mmcrnsd
+  950  mmcrnsd -F ESS_desc.txt
+  951  mmlsnsd
+  953  cat rg_gssio1-hs
+  954  cat cmds
+  960  mmcrfs ESS -F ESS_desc.txt -A yes -j scatter -B 16M -n 32 -L 999999999999 -E no --metadata-block-size 1M
+  961  mmcrfs ESS -F ESS_desc.txt -A yes -j scatter -B 16M -n 32 -L 1073741824 -E no --metadata-block-size 1M
+  963  mmmount all -a
+  964  mmlsfs all
+  966  cd /gpfs/ESS/
+  968  cp /etc/hosts .
+  969  cp /root/ubuntu-18.04.2-desktop-amd64.iso .
+  970  mmdf ESS
+  972  rm ubuntu-18.04.2-desktop-amd64.iso
+  973  rm hosts
+  974  mmlsconfig
+  975  mmchconfig maxMBpS=120000
+  976  mmchconfig maxMBpS=100000 -h
+  977  mmchconfig maxMBpS=100000 -N gss_ppc64
+  978  mmlsconfig
+  979  mmauth show
+  980  mmauth
+  981  mmauth grant utgaard.cluster -f /dev/ESS
+  982  mmauth grant ESSatESS.cluster -f /dev/ESS```

@@ -1,0 +1,3 @@
+RULE 'del1' DELETE FROM POOL 'data'
+   WHERE (CURRENT_TIMESTAMP - ACCESS_TIME > 1800)
+        AND (lower(NAME) LIKE '%.tmp' OR PATH_NAME LIKE '%/tmp/%')

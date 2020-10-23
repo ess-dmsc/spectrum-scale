@@ -1,0 +1,49 @@
+# Source: dmsc-parallel/afonso
+  873  mmumount -a gpfs0
+  874  mmumount gpfs0 -N all
+  875  mmlsmount all
+  876  mmdelfs gpfs0
+  877  mmlsfs all
+  878  mmlsvdisk
+  879  mmdelvdisk
+  880  mmdelvdisk "rg_gssio1_hs_DA1_DataAndMetaData_16M_2p_1;rg_gssio2_hs_DA1_DataAndMetaData_16M_2p_1"
+  881  mmlsnsd all
+  882  mmlsnsd -a
+  883  mmdelnsd
+  884  mmdelnsd "rg_gssio1_hs_DA1_DataAndMetaData_16M_2p_1;rg_gssio2_hs_DA1_DataAndMetaData_16M_2p_1"
+  885  mmdelvdisk "rg_gssio1_hs_DA1_DataAndMetaData_16M_2p_1;rg_gssio2_hs_DA1_DataAndMetaData_16M_2p_1"
+  886  mmlscluster
+  889  vim ESS_desc.txt
+  891  mmlsrecoverygroup
+  892  mmlsrecoverygroup rg_gssio1-hs
+  893  less ESS_desc.txt
+  894  mmcrvdisk
+  895  mmcrvdisk -F ESS_desc.txt
+  896  mmlsrecoverygroup
+  898  mmcrvdisk -F ESS_desc.txt
+  899  mmlsvdisk
+  900  mmcrnsd
+  901  mmcrnsd -F ESS_desc.txt
+  902  mmlsnsd
+  904  cat rg_gssio1-hs
+  905  cat cmds
+  906  mmcrfs
+  908  cat cmds
+  909  #mmcrfs ESS -F ESS_desc.txt -A yes -j scatter -B 16M -n 32 -L 999999999999 -E no --metadata-block-size 1M
+  911  mmcrfs ESS -F ESS_desc.txt -A yes -j scatter -B 16M -n 32 -L 999999999999 -E no --metadata-block-size 1M
+  912  mmcrfs ESS -F ESS_desc.txt -A yes -j scatter -B 16M -n 32 -L 1073741824 -E no --metadata-block-size 1M
+  914  mmmount all -a
+  915  mmlsfs all
+  917  cd /gpfs/ESS/
+  919  cp /etc/hosts .
+  920  cp /root/ubuntu-18.04.2-desktop-amd64.iso .
+  921  mmdf ESS
+  925  mmlsconfig
+  926  mmchconfig maxMBpS=120000
+  927  mmchconfig maxMBpS=100000 -h
+  928  mmchconfig maxMBpS=100000 -N gss_ppc64
+  929  mmlsconfig
+  930  mmauth show
+  931  mmauth
+  932  mmauth grant utgaard.cluster -f /dev/ESS
+  933  mmauth grant ESSatESS.cluster -f /dev/ESS

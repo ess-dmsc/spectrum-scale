@@ -1,0 +1,8 @@
+# Source: From workshop ?
+# Author: Louis B.
+# Referenced in mmcmds
+mmcrfs ESS -F ESS.desc -A yes -j scatter -B 16M -n 120 -L 64M -E no --metadata-block-size 1M
+
+mmcrfs ESS -F ESS.desc -A yes -j scatter -B 8M -n 120 -L 1073741824 -E no --metadata-block-size 1M
+
+mmcrfs ESS -F ESS.desc -A yes -j scatter -B 8M -n 120 -L 1073741824 -E no --metadata-block-size 1M

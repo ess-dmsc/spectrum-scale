@@ -1,0 +1,2 @@
+RULE 'toPoolData' MIGRATE TO POOL 'migrate' 
+        WHERE (DAYS(CURRENT_TIMESTAMP) - DAYS(ACCESS_TIME) > 1)

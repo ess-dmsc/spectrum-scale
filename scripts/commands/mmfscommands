@@ -1,0 +1,451 @@
+# Source: mjc experiments with comments
+# Author: MJC
+
+ mmlsmount all
+File system ESS is mounted on 9 nodes.
+
+mmumount ESS -N all
+Wed Dec 11 09:16:13 CET 2019: mmumount: Unmounting file systems ...
+
+mmlsmount all
+File system ESS is mounted on 8 nodes.
+
+ssh to dmsc-parallel
+ mmumount ESS -N all
+Wed Dec 11 09:20:12 CET 2019: mmumount: Unmounting file systems ...
+
+[root@dmsc-parallel mortenchristensen]# mmlsmount all
+File system ESS (ESSatESS.cluster:ESS) is not mounted.
+
+
+[root@ems1 mjc]# mmlsfs all
+
+File system attributes for /dev/ESS:
+====================================
+flag                value                    description
+------------------- ------------------------ -----------------------------------
+ -f                 8192                     Minimum fragment (subblock) size in bytes (system pool)
+                    131072                   Minimum fragment (subblock) size in bytes (other pools)
+ -i                 4096                     Inode size in bytes
+ -I                 32768                    Indirect block size in bytes
+ -m                 1                        Default number of metadata replicas
+ -M                 2                        Maximum number of metadata replicas
+ -r                 1                        Default number of data replicas
+ -R                 2                        Maximum number of data replicas
+ -j                 scatter                  Block allocation type
+ -D                 nfs4                     File locking semantics in effect
+ -k                 all                      ACL semantics in effect
+ -n                 32                       Estimated number of nodes that will mount file system
+ -B                 1048576                  Block size (system pool)
+                    16777216                 Block size (other pools)
+ -Q                 none                     Quotas accounting enabled
+                    none                     Quotas enforced
+                    none                     Default quotas enabled
+ --perfileset-quota No                       Per-fileset quota enforcement
+ --filesetdf        No                       Fileset df enabled?
+ -V                 20.01 (5.0.2.0)          File system version
+ --create-time      Wed Dec  4 15:27:49 2019 File system creation time
+ -z                 No                       Is DMAPI enabled?
+ -L                 1073741824               Logfile size
+ -E                 No                       Exact mtime mount option
+ -S                 relatime                 Suppress atime mount option
+ -K                 whenpossible             Strict replica allocation option
+ --fastea           Yes                      Fast external attributes enabled?
+ --encryption       No                       Encryption enabled?
+ --inode-limit      64045056                 Maximum number of inodes
+ --log-replicas     0                        Number of log replicas
+ --is4KAligned      Yes                      is4KAligned?
+ --rapid-repair     Yes                      rapidRepair enabled?
+ --write-cache-threshold 0                   HAWC Threshold (max 65536)
+ --subblocks-per-full-block 128              Number of subblocks per full block
+ -P                 system;data              Disk storage pools in file system
+ --file-audit-log   No                       File Audit Logging enabled?
+ --maintenance-mode No                       Maintenance Mode enabled?
+ -d                 ESS_MD_10_001;ESS_MD_10_003;ESS_MD_10_005;ESS_MD_10_007;ESS_MD_10_009;ESS_MD_10_011;ESS_D_10_001;ESS_D_10_003;ESS_D_10_005;ESS_D_10_007;ESS_D_10_009;ESS_D_10_010;
+ -d                 ESS_MD_10_002;ESS_MD_10_004;ESS_MD_10_006;ESS_MD_10_008;ESS_MD_10_010;ESS_MD_10_012;ESS_D_10_002;ESS_D_10_004;ESS_D_10_006;ESS_D_10_008;ESS_D_10_012  Disks in file system
+ -A                 yes                      Automatic mount option
+ -o                 none                     Additional mount options
+ -T                 /gpfs/ESS                Default mount point
+ --mount-priority   0                        Mount priority
+
+
+mmdelfs ESS
+All data on the following disks of ESS will be destroyed:
+    ESS_MD_10_001
+    ESS_MD_10_003
+    ESS_MD_10_005
+    ESS_MD_10_007
+    ESS_MD_10_009
+    ESS_MD_10_011
+    ESS_D_10_001
+    ESS_D_10_003
+    ESS_D_10_005
+    ESS_D_10_007
+    ESS_D_10_009
+    ESS_D_10_010
+    ESS_MD_10_002
+    ESS_MD_10_004
+    ESS_MD_10_006
+    ESS_MD_10_008
+    ESS_MD_10_010
+    ESS_MD_10_012
+    ESS_D_10_002
+    ESS_D_10_004
+    ESS_D_10_006
+    ESS_D_10_008
+    ESS_D_10_012
+Completed deletion of file system /dev/ESS.
+mmdelfs: Propagating the cluster configuration data to all
+  affected nodes.  This is an asynchronous process.
+
+mmlsfs all
+mmlsfs: No file systems were found.
+mmlsfs: Command failed. Examine previous error messages to determine cause.
+
+mmlsrecoverygroup
+
+                     declustered
+                     arrays with
+ recovery group        vdisks     vdisks  servers
+ ------------------  -----------  ------  -------
+ rg_gssio1-hs                  3      15  gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ rg_gssio2-hs                  3      14  gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+
+
+mmlsnsd -a
+
+ File system   Disk name    NSD servers
+---------------------------------------------------------------------------
+ (free disk)   ESS_D_10_001 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_D_10_002 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+ (free disk)   ESS_D_10_003 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_D_10_004 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+ (free disk)   ESS_D_10_005 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_D_10_006 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+ (free disk)   ESS_D_10_007 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_D_10_008 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+ (free disk)   ESS_D_10_009 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_D_10_010 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_D_10_012 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+ (free disk)   ESS_MD_10_001 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_MD_10_002 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+ (free disk)   ESS_MD_10_003 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_MD_10_004 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+ (free disk)   ESS_MD_10_005 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_MD_10_006 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+ (free disk)   ESS_MD_10_007 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_MD_10_008 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+ (free disk)   ESS_MD_10_009 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_MD_10_010 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+ (free disk)   ESS_MD_10_011 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_MD_10_012 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+
+mmdelnsd "ESS_D_10_001"
+mmdelnsd: Propagating the cluster configuration data to all
+  affected nodes.  This is an asynchronous process.
+[root@ems1 mjc]# mmdelnsd "ESS_D_10_001;ESS_D_10_002;ESS_D_10_003;ESS_D_10_004;ESS_D_10_005;ESS_D_10_006;ESS_D_10_007;ESS_D_10_008;ESS_D_10_009;ESS_D_10_010;ESS_D_10_012"
+mmdelnsd: The following disks are not known to GPFS:
+    ESS_D_10_001
+mmdelnsd: Propagating the cluster configuration data to all
+  affected nodes.  This is an asynchronous process.
+
+
+ mmdelnsd "ESS_MD_10_001;ESS_MD_10_002;ESS_MD_10_003;ESS_MD_10_004;ESS_MD_10_005;ESS_MD_10_006;ESS_MD_10_007;ESS_MD_10_008;ESS_MD_10_009;ESS_MD_10_010;ESS_MD_10_011;ESS_MD_10_012"
+mmdelnsd: Propagating the cluster configuration data to all
+  affected nodes.  This is an asynchronous process.
+
+mmlsnsd
+mmlsnsd: [I] No disks were found.
+
+
+ mmdelvdisk "ESS_MD_10_001;ESS_MD_10_002;ESS_MD_10_003;ESS_MD_10_004;ESS_MD_10_005;ESS_MD_10_006;ESS_MD_10_007;ESS_MD_10_008;ESS_MD_10_009;ESS_MD_10_010;ESS_MD_10_011;ESS_MD_10_012"
+mmdelvdisk: [I] Processing vdisk ESS_MD_10_001
+mmdelvdisk: [I] Processing vdisk ESS_MD_10_002
+mmdelvdisk: [I] Processing vdisk ESS_MD_10_003
+mmdelvdisk: [I] Processing vdisk ESS_MD_10_004
+mmdelvdisk: [I] Processing vdisk ESS_MD_10_005
+mmdelvdisk: [I] Processing vdisk ESS_MD_10_006
+mmdelvdisk: [I] Processing vdisk ESS_MD_10_007
+mmdelvdisk: [I] Processing vdisk ESS_MD_10_008
+mmdelvdisk: [I] Processing vdisk ESS_MD_10_009
+mmdelvdisk: [I] Processing vdisk ESS_MD_10_010
+mmdelvdisk: [I] Processing vdisk ESS_MD_10_011
+mmdelvdisk: [I] Processing vdisk ESS_MD_10_012
+mmdelvdisk: Propagating the cluster configuration data to all
+  affected nodes.  This is an asynchronous process.
+[root@ems1 mjc]# mmdelvdisk "ESS_D_10_001;ESS_D_10_002;ESS_D_10_003;ESS_D_10_004;ESS_D_10_005;ESS_D_10_006;ESS_D_10_007;ESS_D_10_008;ESS_D_10_009;ESS_D_10_010;ESS_D_10_012"
+mmdelvdisk: [I] Processing vdisk ESS_D_10_001
+mmdelvdisk: [I] Processing vdisk ESS_D_10_002
+mmdelvdisk: [I] Processing vdisk ESS_D_10_003
+mmdelvdisk: [I] Processing vdisk ESS_D_10_004
+mmdelvdisk: [I] Processing vdisk ESS_D_10_005
+mmdelvdisk: [I] Processing vdisk ESS_D_10_006
+mmdelvdisk: [I] Processing vdisk ESS_D_10_007
+mmdelvdisk: [I] Processing vdisk ESS_D_10_008
+mmdelvdisk: [I] Processing vdisk ESS_D_10_009
+mmdelvdisk: [I] Processing vdisk ESS_D_10_010
+mmdelvdisk: [I] Processing vdisk ESS_D_10_012
+mmdelvdisk: Propagating the cluster configuration data to all
+  affected nodes.  This is an asynchronous process.
+
+
+mmlsvdisk
+                                                          declustered  block size
+ vdisk name          RAID code        recovery group         array       in KiB    remarks
+ ------------------  ---------------  ------------------  -----------  ----------  -------
+ rg_gssio1_hs_loghome  4WayReplication  rg_gssio1-hs        DA1                2048  log
+ rg_gssio1_hs_logtip  2WayReplication  rg_gssio1-hs        NVR                2048  logTip
+ rg_gssio1_hs_logtipbackup  Unreplicated     rg_gssio1-hs        SSD                2048  logTipBackup
+ rg_gssio2_hs_loghome  4WayReplication  rg_gssio2-hs        DA1                2048  log
+ rg_gssio2_hs_logtip  2WayReplication  rg_gssio2-hs        NVR                2048  logTip
+ rg_gssio2_hs_logtipbackup  Unreplicated     rg_gssio2-hs        SSD                2048  logTipBackup
+
+
+mmcrvdisk -F ESS_desc.txt
+mmcrvdisk: [I] Processing vdisk ESS_MD_10_001
+mmcrvdisk: [I] Processing vdisk ESS_MD_10_002
+mmcrvdisk: [I] Processing vdisk ESS_MD_10_004
+mmcrvdisk: [I] Processing vdisk ESS_MD_10_003
+mmcrvdisk: [I] Processing vdisk ESS_MD_10_006
+mmcrvdisk: [I] Processing vdisk ESS_MD_10_005
+mmcrvdisk: [I] Processing vdisk ESS_MD_10_008
+mmcrvdisk: [I] Processing vdisk ESS_MD_10_007
+mmcrvdisk: [I] Processing vdisk ESS_MD_10_010
+mmcrvdisk: [I] Processing vdisk ESS_MD_10_009
+mmcrvdisk: [I] Processing vdisk ESS_MD_10_012
+mmcrvdisk: [I] Processing vdisk ESS_MD_10_011
+mmcrvdisk: [I] Processing vdisk ESS_D_10_002
+mmcrvdisk: [I] Processing vdisk ESS_D_10_001
+mmcrvdisk: [I] Processing vdisk ESS_D_10_004
+mmcrvdisk: [I] Processing vdisk ESS_D_10_003
+mmcrvdisk: [I] Processing vdisk ESS_D_10_006
+mmcrvdisk: [I] Processing vdisk ESS_D_10_005
+mmcrvdisk: [I] Processing vdisk ESS_D_10_008
+mmcrvdisk: [I] Processing vdisk ESS_D_10_007
+mmcrvdisk: [I] Processing vdisk ESS_D_10_010
+mmcrvdisk: [I] Processing vdisk ESS_D_10_009
+mmcrvdisk: [I] Processing vdisk ESS_D_10_012
+mmcrvdisk: [I] Processing vdisk ESS_D_10_011
+mmcrvdisk: Propagating the cluster configuration data to all
+  affected nodes.  This is an asynchronous process.
+
+mmlsvdisk
+                                                          declustered  block size
+ vdisk name          RAID code        recovery group         array       in KiB    remarks
+ ------------------  ---------------  ------------------  -----------  ----------  -------
+ ESS_D_10_001        8+2p             rg_gssio1-hs        DA1               16384
+ ESS_D_10_002        8+2p             rg_gssio2-hs        DA1               16384
+ ESS_D_10_003        8+2p             rg_gssio1-hs        DA1               16384
+ ESS_D_10_004        8+2p             rg_gssio2-hs        DA1               16384
+ ESS_D_10_005        8+2p             rg_gssio1-hs        DA1               16384
+ ESS_D_10_006        8+2p             rg_gssio2-hs        DA1               16384
+ ESS_D_10_007        8+2p             rg_gssio1-hs        DA1               16384
+ ESS_D_10_008        8+2p             rg_gssio2-hs        DA1               16384
+ ESS_D_10_009        8+2p             rg_gssio1-hs        DA1               16384
+ ESS_D_10_010        8+2p             rg_gssio2-hs        DA1               16384
+ ESS_D_10_011        8+2p             rg_gssio1-hs        DA1               16384
+ ESS_D_10_012        8+2p             rg_gssio2-hs        DA1               16384
+ ESS_MD_10_001       3WayReplication  rg_gssio1-hs        DA1                1024
+ ESS_MD_10_002       3WayReplication  rg_gssio2-hs        DA1                1024
+ ESS_MD_10_003       3WayReplication  rg_gssio1-hs        DA1                1024
+ ESS_MD_10_004       3WayReplication  rg_gssio2-hs        DA1                1024
+ ESS_MD_10_005       3WayReplication  rg_gssio1-hs        DA1                1024
+ ESS_MD_10_006       3WayReplication  rg_gssio2-hs        DA1                1024
+ ESS_MD_10_007       3WayReplication  rg_gssio1-hs        DA1                1024
+ ESS_MD_10_008       3WayReplication  rg_gssio2-hs        DA1                1024
+ ESS_MD_10_009       3WayReplication  rg_gssio1-hs        DA1                1024
+ ESS_MD_10_010       3WayReplication  rg_gssio2-hs        DA1                1024
+ ESS_MD_10_011       3WayReplication  rg_gssio1-hs        DA1                1024
+ ESS_MD_10_012       3WayReplication  rg_gssio2-hs        DA1                1024
+ rg_gssio1_hs_loghome  4WayReplication  rg_gssio1-hs        DA1                2048  log
+ rg_gssio1_hs_logtip  2WayReplication  rg_gssio1-hs        NVR                2048  logTip
+ rg_gssio1_hs_logtipbackup  Unreplicated     rg_gssio1-hs        SSD                2048  logTipBackup
+ rg_gssio2_hs_loghome  4WayReplication  rg_gssio2-hs        DA1                2048  log
+ rg_gssio2_hs_logtip  2WayReplication  rg_gssio2-hs        NVR                2048  logTip
+ rg_gssio2_hs_logtipbackup  Unreplicated     rg_gssio2-hs        SSD                2048  logTipBackup
+
+
+ESS_desc.txt was updated - nsd stanza was added
+
+mmcrnsd -F ESS_desc.txt
+mmcrnsd: Processing disk ESS_MD_10_001
+mmcrnsd: Processing disk ESS_MD_10_003
+mmcrnsd: Processing disk ESS_MD_10_005
+mmcrnsd: Processing disk ESS_MD_10_007
+mmcrnsd: Processing disk ESS_MD_10_009
+mmcrnsd: Processing disk ESS_MD_10_011
+mmcrnsd: Processing disk ESS_D_10_001
+mmcrnsd: Processing disk ESS_D_10_003
+mmcrnsd: Processing disk ESS_D_10_005
+mmcrnsd: Processing disk ESS_D_10_007
+mmcrnsd: Processing disk ESS_D_10_009
+mmcrnsd: Processing disk ESS_D_10_011
+mmcrnsd: Processing disk ESS_MD_10_002
+mmcrnsd: Processing disk ESS_MD_10_004
+mmcrnsd: Processing disk ESS_MD_10_006
+mmcrnsd: Processing disk ESS_MD_10_008
+mmcrnsd: Processing disk ESS_MD_10_010
+mmcrnsd: Processing disk ESS_MD_10_012
+mmcrnsd: Processing disk ESS_D_10_002
+mmcrnsd: Processing disk ESS_D_10_004
+mmcrnsd: Processing disk ESS_D_10_006
+mmcrnsd: Processing disk ESS_D_10_008
+mmcrnsd: Processing disk ESS_D_10_010
+mmcrnsd: Processing disk ESS_D_10_012
+mmcrnsd: Propagating the cluster configuration data to all
+  affected nodes.  This is an asynchronous process.
+
+mmlsnsd
+
+ File system   Disk name    NSD servers
+---------------------------------------------------------------------------
+ (free disk)   ESS_D_10_001 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_D_10_002 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+ (free disk)   ESS_D_10_003 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_D_10_004 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+ (free disk)   ESS_D_10_005 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_D_10_006 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+ (free disk)   ESS_D_10_007 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_D_10_008 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+ (free disk)   ESS_D_10_009 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_D_10_010 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+ (free disk)   ESS_D_10_011 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_D_10_012 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+ (free disk)   ESS_MD_10_001 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_MD_10_002 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+ (free disk)   ESS_MD_10_003 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_MD_10_004 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+ (free disk)   ESS_MD_10_005 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_MD_10_006 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+ (free disk)   ESS_MD_10_007 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_MD_10_008 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+ (free disk)   ESS_MD_10_009 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_MD_10_010 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+ (free disk)   ESS_MD_10_011 gssio1-hs.gpfs.net,gssio2-hs.gpfs.net
+ (free disk)   ESS_MD_10_012 gssio2-hs.gpfs.net,gssio1-hs.gpfs.net
+
+ mmcrfs ESS -F ESS_desc.txt -A yes -j scatter -B 16M -n 32 -L 1073741824 -E no --metadata-block-size 1M
+
+The following disks of ESS will be formatted on node gssio2.gpfs.net:
+    ESS_MD_10_001: size 524774 MB
+    ESS_MD_10_003: size 524774 MB
+    ESS_MD_10_005: size 524774 MB
+    ESS_MD_10_007: size 524774 MB
+    ESS_MD_10_009: size 524774 MB
+    ESS_MD_10_011: size 524774 MB
+    ESS_D_10_001: size 20974672 MB
+    ESS_D_10_003: size 20974672 MB
+    ESS_D_10_005: size 20974672 MB
+    ESS_D_10_007: size 20974672 MB
+    ESS_D_10_009: size 20974672 MB
+    ESS_D_10_011: size 20974672 MB
+    ESS_MD_10_002: size 524774 MB
+    ESS_MD_10_004: size 524774 MB
+    ESS_MD_10_006: size 524774 MB
+    ESS_MD_10_008: size 524774 MB
+    ESS_MD_10_010: size 524774 MB
+    ESS_MD_10_012: size 524774 MB
+    ESS_D_10_002: size 20974672 MB
+    ESS_D_10_004: size 20974672 MB
+    ESS_D_10_006: size 20974672 MB
+    ESS_D_10_008: size 20974672 MB
+    ESS_D_10_010: size 20974672 MB
+    ESS_D_10_012: size 20974672 MB
+Formatting file system ...
+Disks up to size 8.19 TB can be added to storage pool system.
+Disks up to size 271.72 TB can be added to storage pool data.
+Creating Inode File
+Creating Allocation Maps
+Creating Log Files
+   3 % complete on Wed Dec 11 09:57:16 2019
+ 100 % complete on Wed Dec 11 09:57:16 2019
+Clearing Inode Allocation Map
+Clearing Block Allocation Map
+Formatting Allocation Map for storage pool system
+Formatting Allocation Map for storage pool data
+Completed creation of file system /dev/ESS.
+mmcrfs: Propagating the cluster configuration data to all
+  affected nodes.  This is an asynchronous process.
+
+
+mmlsfs all
+
+File system attributes for /dev/ESS:
+====================================
+flag                value                    description
+------------------- ------------------------ -----------------------------------
+ -f                 8192                     Minimum fragment (subblock) size in bytes (system pool)
+                    131072                   Minimum fragment (subblock) size in bytes (other pools)
+ -i                 4096                     Inode size in bytes
+ -I                 32768                    Indirect block size in bytes
+ -m                 1                        Default number of metadata replicas
+ -M                 2                        Maximum number of metadata replicas
+ -r                 1                        Default number of data replicas
+ -R                 2                        Maximum number of data replicas
+ -j                 scatter                  Block allocation type
+ -D                 nfs4                     File locking semantics in effect
+ -k                 all                      ACL semantics in effect
+ -n                 32                       Estimated number of nodes that will mount file system
+ -B                 1048576                  Block size (system pool)
+                    16777216                 Block size (other pools)
+ -Q                 none                     Quotas accounting enabled
+                    none                     Quotas enforced
+                    none                     Default quotas enabled
+ --perfileset-quota No                       Per-fileset quota enforcement
+ --filesetdf        No                       Fileset df enabled?
+ -V                 20.01 (5.0.2.0)          File system version
+ --create-time      Wed Dec 11 09:57:16 2019 File system creation time
+ -z                 No                       Is DMAPI enabled?
+ -L                 1073741824               Logfile size
+ -E                 No                       Exact mtime mount option
+ -S                 relatime                 Suppress atime mount option
+ -K                 whenpossible             Strict replica allocation option
+ --fastea           Yes                      Fast external attributes enabled?
+ --encryption       No                       Encryption enabled?
+ --inode-limit      134217728                Maximum number of inodes
+ --log-replicas     0                        Number of log replicas
+ --is4KAligned      Yes                      is4KAligned?
+ --rapid-repair     Yes                      rapidRepair enabled?
+ --write-cache-threshold 0                   HAWC Threshold (max 65536)
+ --subblocks-per-full-block 128              Number of subblocks per full block
+ -P                 system;data              Disk storage pools in file system
+ --file-audit-log   No                       File Audit Logging enabled?
+ --maintenance-mode No                       Maintenance Mode enabled?
+ -d                 ESS_MD_10_001;ESS_MD_10_003;ESS_MD_10_005;ESS_MD_10_007;ESS_MD_10_009;ESS_MD_10_011;ESS_D_10_001;ESS_D_10_003;ESS_D_10_005;ESS_D_10_007;ESS_D_10_009;ESS_D_10_011;
+ -d                 ESS_MD_10_002;ESS_MD_10_004;ESS_MD_10_006;ESS_MD_10_008;ESS_MD_10_010;ESS_MD_10_012;ESS_D_10_002;ESS_D_10_004;ESS_D_10_006;ESS_D_10_008;ESS_D_10_010;ESS_D_10_012  Disks in file system
+ -A                 yes                      Automatic mount option
+ -o                 none                     Additional mount options
+ -T                 /gpfs/ESS                Default mount point
+ --mount-priority   0                        Mount priority
+
+
+ mmmount all -a
+Wed Dec 11 09:58:24 CET 2019: mmmount: Mounting file systems ...
+[root@ems1 mjc]# mmlsmount all
+File system ESS is mounted on 3 nodes.
+
+mmauth grant utgaard.cluster -f ESS
+
+mmauth: Granting cluster utgaard.cluster access to file system ESS:
+        access type rw; root credentials will not be remapped.
+
+mmauth: Propagating the cluster configuration data to all affected nodes.
+mmauth: Command successfully completed
+[root@ems1 ~]# mmauth show all
+Cluster name:        utgaard.cluster
+Cipher list:         AUTHONLY
+SHA digest:          e252ccf23ca5f9f450c5124d8fb368720893dcc21976179c2e3e4c20aac69808
+File system access:  ESS       (rw, root allowed)
+
+Cluster name:        ESSatESS.cluster (this cluster)
+Cipher list:         AUTHONLY
+SHA digest:          a89c78712923a42332ba24696b727a9ebbd32abd2440ba7942212073835300c7
+File system access:  (all rw)
+
+
+mmlsmount all
+File system ESS (ESSatESS.cluster:ESS) is mounted on 9 nodes.
+
+
+
+ddswitching to dmsc-parallel

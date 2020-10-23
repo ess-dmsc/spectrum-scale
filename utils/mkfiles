@@ -1,0 +1,13 @@
+#!/bin/bash
+
+dirs="dira dirb dirc dird dire dirf"
+files="a b c d e f g h"
+
+for d in $dirs
+do
+  mkdir -p /gpfs/ESS/morten/$d
+  for f in $files
+  do
+    touch /gpfs/ESS/morten/$d/$f.tmp
+  done
+done
